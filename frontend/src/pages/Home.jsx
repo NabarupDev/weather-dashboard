@@ -12,8 +12,20 @@ const Home = () => {
   const [locationError, setLocationError] = useState('');
 
   const API_URL = import.meta.env.VITE_API_URL;
+  const WAKE_API_URL = import.meta.env.VITE_WAKE_API_URL;
 
   useEffect(() => {
+    // Wake up the backend server
+    const wakeBackend = async () => {
+      try {
+        await axios.get(WAKE_API_URL);
+      } catch (err) {
+        console.log('Failed to wake backend server');
+      }
+    };
+    
+    wakeBackend();
+    
     const fetchLocationAndWeather = async () => {
       setLocationLoading(true);
       setLocationError('');
@@ -41,7 +53,7 @@ const Home = () => {
     };
     
     fetchLocationAndWeather();
-  }, [API_URL]);
+  }, [API_URL, WAKE_API_URL]);
 
   const fetchWeather = async (e) => {
     e.preventDefault();
