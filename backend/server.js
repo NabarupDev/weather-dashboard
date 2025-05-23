@@ -78,6 +78,10 @@ app.get('/', (req, res) => {
   res.send('Weather Dashboard API is running');
 });
 
+app.get('/api/wake', (req, res) => {
+  res.status(200).json({ status: 'Server is awake' });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
